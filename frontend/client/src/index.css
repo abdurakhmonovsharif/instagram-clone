@@ -16,3 +16,6 @@ input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
+.flex-center-center{
+    @apply flex justify-center items-center
+}

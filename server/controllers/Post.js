@@ -8,7 +8,7 @@ export const createPost = async (req, res) => {
     const { user_id } = req.query;
     const { caption, location } = req.body;
     const { url, success, type } = await postMedia(req.file);
-  
+
     if (success) {
       const newPost = new Post({
         user_id,
@@ -30,8 +30,12 @@ export const createPost = async (req, res) => {
 export const getUserPosts = async (req, res) => {
   try {
     const { user_id } = req.query;
-    const data = await Post.find({ user_id });
-    res.status(201).json({ data, message: "success" });
+    if (user_id) {
+      const data = await Post.find({ user_id });
+      res.status(201).json({ data, message: "success" });
+    } else {
+      res.status(404).json({ message: "Not found user_id" });
+    }
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
